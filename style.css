@@ -1,0 +1,57 @@
+body { 
+  font-family: Arial, sans-serif; 
+  margin: 10px; 
+  background: #f0f4f8;
+}
+
+h1 { 
+  text-align: center; 
+  color: #333;
+}
+
+/* Tabs bovenaan */
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+
+.tab {
+  flex: none;
+  padding: 10px 15px;
+  background: #ddd;
+  margin-right: 5px;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #4285f4;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Inhoud van het lid */
+.memberContent { 
+  border: 1px solid #ccc; 
+  padding: 15px; 
+  border-radius: 0 10px 10px 10px;
+  background-color: #fff; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+button { 
+  margin: 2px; 
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:active {
+  transform: scale(0.95);
+}
