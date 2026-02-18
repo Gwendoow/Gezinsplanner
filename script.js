@@ -1,3 +1,4 @@
+let familyMembers = JSON.parse(localStorage.getItem("familyMembers")) || [];
 // Laad bestaande gegevens of start leeg
 let members = JSON.parse(localStorage.getItem('members')) || [];
 let activeMemberIndex = 0;
@@ -113,6 +114,8 @@ function addMember() {
     activeMemberIndex = members.length - 1;
     renderTabs();
     renderMemberContent();
+    saveToStorage();
+
   }
 }
 
@@ -125,6 +128,8 @@ function addTask() {
       completed: false
     });
     renderMemberContent();
+    saveToStorage();
+
   }
 }
 
@@ -139,6 +144,8 @@ function addAppointment() {
       date
     });
     renderMemberContent();
+    saveToStorage();
+
   }
 }
 
@@ -147,6 +154,8 @@ function addNote() {
   if(note) {
     members[activeMemberIndex].notes.push(note);
     renderMemberContent();
+    saveToStorage();
+
   }
 }
 function toggleTask(index) {
@@ -159,16 +168,22 @@ function toggleTask(index) {
 function removeTask(index) {
   members[activeMemberIndex].tasks.splice(index, 1);
   renderMemberContent();
+  saveToStorage();
+
 }
 
 function removeAppointment(index) {
   members[activeMemberIndex].appointments.splice(index, 1);
   renderMemberContent();
+  saveToStorage();
+
 }
 
 function removeNote(index) {
   members[activeMemberIndex].notes.splice(index, 1);
   renderMemberContent();
+  saveToStorage();
+
 }
 
 function removeMember() {
@@ -177,10 +192,16 @@ function removeMember() {
     if(activeMemberIndex >= members.length) activeMemberIndex = members.length -1;
     renderTabs();
     renderMemberContent();
+    saveToStorage();
+
   }
 }
 
 // Eerste render
 renderTabs();
 renderMemberContent();
+function saveToStorage() {
+  localStorage.setItem("familyMembers", JSON.stringify(familyMembers));
+}
 
+render();
