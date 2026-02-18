@@ -1,3 +1,17 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyAOd-n5EI5C-olJb0Q5662znEvuRcj7ZNM",
+  authDomain: "gezinsapp-caba5.firebaseapp.com",
+  projectId: "gezinsapp-caba5",
+  storageBucket: "gezinsapp-caba5.firebasestorage.app",
+  messagingSenderId: "154360595739",
+  appId: "1:154360595739:web:152593367dd1ff2cd9bfbe",
+  measurementId: "G-S0BHW8MVH4"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 let familyMembers = JSON.parse(localStorage.getItem("familyMembers")) || [];
 // Laad bestaande gegevens of start leeg
 let members = JSON.parse(localStorage.getItem('members')) || [];
@@ -119,20 +133,20 @@ function addMember() {
   }
 }
 
+async function addTask(memberName) {
+  const taskInput = document.getElementById("taskInput");
+  const taskText = taskInput.value;
 
-function addTask() {
-  const task = prompt('Nieuwe taak:');
-  if(task) {
-    members[activeMemberIndex].tasks.push({
-      text: task,
-      completed: false
-    });
-    renderMemberContent();
-    saveToStorage();
+  if (taskText === "") return;
 
-  }
+  await addDoc(collection(db, "tasks"), {
+    member: memberName,
+    text: taskText,
+    createdAt: Date.now()
+  });
+
+  taskInput.value = "";
 }
-
 
 function addAppointment() {
   const text = prompt("Beschrijving afspraak:");
@@ -165,12 +179,10 @@ function toggleTask(index) {
 }
 
 // Verwijderen functies
-function removeTask(index) {
-  members[activeMemberIndex].tasks.splice(index, 1);
-  renderMemberContent();
-  saveToStorage();
-
+async function deleteTask(id) {
+  await deleteDoc(doc(db, "tasks", id));
 }
+
 
 function removeAppointment(index) {
   members[activeMemberIndex].appointments.splice(index, 1);
@@ -205,3 +217,24 @@ function saveToStorage() {
 }
 
 render();
+function loadTasks() {
+  const taskList = document.getElementById("taskList");
+
+  onSnapshot(collection(db, "tasks"), (snapshot) => {
+    taskList.innerHTML = "";
+
+    snapshot.forEach((docItem) => {
+      const task = docItem.data();
+      const li = document.createElement("li");
+      li.textContent = task.member + ": " + task.text;
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "❌";
+      deleteBtn.onclick = () => deleteTask(docItem.id);
+
+      li.appendChild(deleteBtn);
+      taskList.appendChild(li);
+    });
+  });
+}
+loadTasks();
