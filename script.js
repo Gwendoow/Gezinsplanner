@@ -1,17 +1,3 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyAOd-n5EI5C-olJb0Q5662znEvuRcj7ZNM",
-  authDomain: "gezinsapp-caba5.firebaseapp.com",
-  projectId: "gezinsapp-caba5",
-  storageBucket: "gezinsapp-caba5.firebasestorage.app",
-  messagingSenderId: "154360595739",
-  appId: "1:154360595739:web:152593367dd1ff2cd9bfbe",
-  measurementId: "G-S0BHW8MVH4"
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
 let familyMembers = JSON.parse(localStorage.getItem("familyMembers")) || [];
 // Laad bestaande gegevens of start leeg
 let members = JSON.parse(localStorage.getItem('members')) || [];
