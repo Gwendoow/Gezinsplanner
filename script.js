@@ -26,10 +26,54 @@ function renderMemberContent() {
   if(!member) return;
 
   const div = document.getElementById('memberContent');
+  div.style.background = member.color;
 
-  const tasksHTML = member.tasks.map((task, i) => 
-    `${task} <button onclick="removeTask(${i})">❌</button>`
-  ).join('<br>') || 'Geen';
+
+ div.innerHTML = `
+  <h2>${member.name}</h2>
+
+  <div class="section">
+  <div class="section-title">📋 Taken</div>
+  ${member.tasks.map((task, i) =>
+    `<div>
+      <input type="checkbox"
+        ${task.completed ? "checked" : ""}
+        onchange="toggleTask(${i})">
+      <span style="${task.completed ? 'text-decoration: line-through; opacity:0.6;' : ''}">
+        ${task.text}
+      </span>
+      <button class="delete-btn" onclick="removeTask(${i})">✖</button>
+    </div>`
+  ).join('') || 'Geen taken'}
+  <button class="add-btn" onclick="addTask()">+ Taak toevoegen</button>
+</div>
+
+
+  <div class="section">
+  <div class="section-title">📅 Afspraken</div>
+  ${member.appointments.map((app, i) =>
+    `<div>
+      <strong>${app.date}</strong> - ${app.text}
+      <button class="delete-btn" onclick="removeAppointment(${i})">✖</button>
+    </div>`
+  ).join('') || 'Geen afspraken'}
+  <button class="add-btn" onclick="addAppointment()">+ Afspraak toevoegen</button>
+</div>
+
+
+  <div class="section">
+    <div class="section-title">📝 Notities</div>
+    ${member.notes.map((note, i) =>
+      `<div>${note}
+        <button class="delete-btn" onclick="removeNote(${i})">✖</button>
+      </div>`
+    ).join('') || 'Geen notities'}
+    <button class="add-btn" onclick="addNote()">+ Notitie toevoegen</button>
+  </div>
+
+  <button class="delete-btn" onclick="removeMember()">Gezinslid verwijderen</button>
+`;
+
 
   const appointmentsHTML = member.appointments.map((app, i) => 
     `${app} <button onclick="removeAppointment(${i})">❌</button>`
@@ -54,25 +98,46 @@ function renderMemberContent() {
 function addMember() {
   const name = prompt('Naam van gezinslid:');
   if(name) {
-    members.push({name, tasks: [], appointments: [], notes: []});
-    activeMemberIndex = members.length -1;
+
+    const colors = ["#FFB6C1", "#B5EAD7", "#C7CEEA", "#FFDAC1", "#E2F0CB"];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+    members.push({
+      name,
+      color: randomColor,
+      tasks: [],
+      appointments: [],
+      notes: []
+    });
+
+    activeMemberIndex = members.length - 1;
     renderTabs();
     renderMemberContent();
   }
 }
 
+
 function addTask() {
   const task = prompt('Nieuwe taak:');
   if(task) {
-    members[activeMemberIndex].tasks.push(task);
+    members[activeMemberIndex].tasks.push({
+      text: task,
+      completed: false
+    });
     renderMemberContent();
   }
 }
 
+
 function addAppointment() {
-  const app = prompt('Nieuwe afspraak:');
-  if(app) {
-    members[activeMemberIndex].appointments.push(app);
+  const text = prompt("Beschrijving afspraak:");
+  const date = prompt("Datum (bv 20/02/2026):");
+
+  if(text && date) {
+    members[activeMemberIndex].appointments.push({
+      text,
+      date
+    });
     renderMemberContent();
   }
 }
@@ -83,6 +148,11 @@ function addNote() {
     members[activeMemberIndex].notes.push(note);
     renderMemberContent();
   }
+}
+function toggleTask(index) {
+  members[activeMemberIndex].tasks[index].completed =
+    !members[activeMemberIndex].tasks[index].completed;
+  renderMemberContent();
 }
 
 // Verwijderen functies
