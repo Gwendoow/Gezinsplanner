@@ -5,22 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gezinsplanner</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-
 </head>
 <body>
-  <h1>Mijn Gezin</h1>
 
-  <!-- Tabs voor gezinsleden -->
-  <div id="tabs" class="tabs"></div>
+  <h1>👨‍👩‍👧‍👦 Gezinsplanner</h1>
 
-  <!-- Inhoud van het geselecteerde gezinslid -->
-  <div id="memberContent" class="memberContent"></div>
+  <div class="add-member">
+    <input type="text" id="memberInput" placeholder="Naam gezinslid">
+    <button onclick="addMember()">Toevoegen</button>
+  </div>
 
-  <!-- Knop om nieuw gezinslid toe te voegen -->
-  <button onclick="addMember()">Gezinslid toevoegen</button>
+  <div id="familyContainer"></div>
 
   <script src="script.js"></script>
-
-</body>
-</html>
+</bod
