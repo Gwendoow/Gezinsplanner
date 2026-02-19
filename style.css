@@ -1,90 +1,43 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Arial, sans-serif;
+  background: #f2f4f8;
   margin: 0;
-  padding: 15px;
-  background: linear-gradient(135deg, #f0f4f8, #e4ecf5);
+  padding: 20px;
 }
 
 h1 {
   text-align: center;
+}
+
+.add-member {
+  text-align: center;
   margin-bottom: 20px;
-  color: #333;
 }
 
-/* Tabs */
-.tabs {
-  display: flex;
-  overflow-x: auto;
-  margin-bottom: 10px;
-}
-
-.tab {
-  padding: 10px 15px;
-  margin-right: 8px;
-  border-radius: 20px;
-  background: #e0e0e0;
-  cursor: pointer;
-  transition: 0.3s;
-  white-space: nowrap;
-}
-
-.tab.active {
-  background: #4a90e2;
-  color: white;
-  font-weight: bold;
-}
-
-/* Card */
-.memberContent {
+.memberCard {
   background: white;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  animation: fadeIn 0.3s ease-in-out;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
-h2 {
+.memberCard h2 {
   margin-top: 0;
 }
 
-/* Sections */
 .section {
-  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
-.section-title {
-  font-weight: bold;
-  margin-bottom: 8px;
-  font-size: 16px;
+input {
+  padding: 6px;
+  margin-top: 5px;
+  width: 60%;
 }
 
-/* Buttons */
 button {
-  border: none;
-  border-radius: 20px;
-  padding: 6px 12px;
-  margin: 4px 0;
-  cursor: pointer;
-  background: #4a90e2;
-  color: white;
-  transition: 0.2s;
-}
-
-button:hover {
-  opacity: 0.85;
-}
-
-.delete-btn {
-  background: #ff5c5c;
+  padding: 6px 10px;
   margin-left: 5px;
+  cursor: pointer;
 }
-
-.add-btn {
-  background: #50c878;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
